@@ -7,8 +7,8 @@ import 'package:sktr/Api_modelClass/all_get_data_modelClass.dart';
 class CounterProvider extends ChangeNotifier {
   //get Area
   List<Areas> allGetAreaslist = [];
-  getArea(BuildContext context) async {
-    allGetAreaslist = await ApiAllGetArea.GetApiAllGetArea(context);
+  getArea(BuildContext context, String token) async {
+    allGetAreaslist = await ApiAllGetArea.GetApiAllGetArea(context, token);
     notifyListeners();
   }
 
@@ -19,10 +19,4 @@ class CounterProvider extends ChangeNotifier {
         await ApiAllGetData.GetApiAllGetData(context, dateFrom, dateTo, areaId);
     notifyListeners();
   }
-  // List<AllGetDataModelClass> allGetDatalist = [];
-  // getGetData(context, String? dateFrom, String? dateTo) async {
-  //   allGetDatalist =
-  //       await ApiAllGetData.GetApiAllGetData(context, dateFrom, dateTo);
-  //   notifyListeners();
-  // }
 }

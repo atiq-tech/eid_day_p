@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sktr/Api_integration/api_get_data.dart';
 import 'package:sktr/providers/counter_probider.dart';
+import 'package:sktr/token_provider.dart';
 import '../widget/button.dart';
 
 class DataListScreen extends StatefulWidget {
@@ -58,6 +59,7 @@ class _DataListScreenState extends State<DataListScreen> {
   ApiAllGetData? apiAllGetData;
   @override
   void initState() {
+    Provider.of<TokenProvider>(context, listen: false).getSignUpToken();
     firstPickedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     secondPickedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     // TODO: implement initState
@@ -66,6 +68,7 @@ class _DataListScreenState extends State<DataListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var token = Provider.of<TokenProvider>(context, listen: true).token;
     final allGetAreaData =
         Provider.of<CounterProvider>(context).allGetAreaslist;
     //All Get data
@@ -117,7 +120,7 @@ class _DataListScreenState extends State<DataListScreen> {
                             onChanged: (String? value) {
                               areaList = Provider.of<CounterProvider>(context,
                                       listen: false)
-                                  .getArea(context);
+                                  .getArea(context, token);
                               setState(() {
                                 dropDownvalue = value!.toString();
                                 // _byAreaVisible = value == "By Area";

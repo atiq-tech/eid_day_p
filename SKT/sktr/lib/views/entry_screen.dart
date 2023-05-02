@@ -9,12 +9,16 @@ import 'package:sktr/Api_integration/api_get_area.dart';
 import 'package:sktr/conts/app_colors.dart';
 import 'package:sktr/otp_screen.dart';
 import 'package:sktr/providers/counter_probider.dart';
+import 'package:sktr/token_provider.dart';
 import 'package:sktr/widget/button.dart';
 import '../widget/gap_height.dart';
 
 class DataEntryScreen extends StatefulWidget {
-  const DataEntryScreen({required this.currentPositionUser, super.key});
+  const DataEntryScreen(
+      {required this.currentPositionUser, super.key, required this.token});
   final Position currentPositionUser;
+  final String token;
+
   @override
   State<DataEntryScreen> createState() => _DataEntryScreenState();
 }
@@ -64,15 +68,18 @@ class _DataEntryScreenState extends State<DataEntryScreen> {
   ApiAllGetArea? apiAllGetArea;
   @override
   void initState() {
+    Provider.of<TokenProvider>(context, listen: false).getSignUpToken();
     _getCurrentAddress();
     ApiAllGetArea apiAllGetArea;
-    Provider.of<CounterProvider>(context, listen: false).getArea(context);
+    Provider.of<CounterProvider>(context, listen: false)
+        .getArea(context, widget.token);
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var token = Provider.of<TokenProvider>(context, listen: true).token;
     final allGetAreaData =
         Provider.of<CounterProvider>(context).allGetAreaslist;
     //print("aaaaaaaaaaa==========>${allGetAreaData}");

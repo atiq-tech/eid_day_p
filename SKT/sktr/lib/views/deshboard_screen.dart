@@ -9,8 +9,10 @@ import '../widget/deshboard.dart';
 import 'data_list_screen.dart';
 
 class DeshBoardScreen extends StatefulWidget {
-  const DeshBoardScreen({required this.currentPosition, super.key});
+  const DeshBoardScreen(
+      {required this.currentPosition, required this.token, super.key});
   final Position currentPosition;
+  final String token;
 
   @override
   State<DeshBoardScreen> createState() => _DeshBoardScreenState();
@@ -201,6 +203,7 @@ class _DeshBoardScreenState extends State<DeshBoardScreen> {
                         MaterialPageRoute(builder: (_) {
                           return DataEntryScreen(
                             currentPositionUser: widget.currentPosition,
+                            token: widget.token,
                           );
                         }),
                       );
